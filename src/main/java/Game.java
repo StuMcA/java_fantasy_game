@@ -32,7 +32,15 @@ public class Game {
         return this.players.get(index);
     }
 
+    public void loopRooms() {
+        for (Room room : this.rooms) {
+            this.checkRoom(room, this.getPlayer(0));
+        }
+        System.out.println("You've won, woohoo!");
+    }
+
     public void checkRoom(Room room, Player player) {
+        System.out.println("You've entered " + room.getRoomName());
         if (room.getEnemy() == null) {
             for (Treasure treasure : room.getTreasureList()) {
                 player.collectTreasure(treasure);
@@ -42,11 +50,9 @@ public class Game {
             this.getTotals(room);
         }
 
-//        room.setRoomComplete();
-//        this.nextRoom();
     }
     public void getTotals(Room room) {
-
+        System.out.println("In the room there is a " + room.getEnemy().getType());
             int totalAttack = 0;
             int totalHealing = 0;
             int enemyAttackPower = 0;
@@ -59,13 +65,12 @@ public class Game {
             }
             enemyAttackPower += room.getEnemy().getAttackPoints();
             attackEnemy(totalAttack, room);
-            playerDamage(enemyAttackPower);
+            playerDamage(enemyAttackPower, room);
             healPlayers(totalHealing);
             if(this.getPlayersSize() > 0 && room.getEnemy().getHealthPoints() < 1){
+                System.out.println("You killed it!");
                 room.setRoomComplete();
-            } else if(this.getPlayersSize() == 0){
-                this.loseGame();
-            } else {
+            }  else {
                 this.getTotals(room);
             }
     }
@@ -82,19 +87,26 @@ public class Game {
         room.getEnemy().setHealthPoints(
                 room.getEnemy().getHealthPoints() - totalAttack
         );
+        System.out.println("You did " + totalAttack + "damage");
     }
 
-    public void playerDamage(int damage){
+    public void playerDamage(int damage, Room room){
         for(Player player : this.players){
             player.setHealth(player.getHealth() - damage);
+            System.out.println();
             if (player.getHealth() <= 0) {
                 this.players.remove(player);
+                System.out.println(player.getName() + " died");
+            }
+            if (this.getPlayersSize() == 0){
+                this.loseGame(room);
             }
         }
     }
 
-    public void loseGame(){
-        System.out.println("YOU LOSE, LOSER");
+    public void loseGame(Room room){
+        System.out.println("YOU LOSE, YOU DIED IN " + room.getRoomName());
+        System.exit(0);
     }
 
 

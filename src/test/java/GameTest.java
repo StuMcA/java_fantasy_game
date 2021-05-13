@@ -13,10 +13,10 @@ import static org.junit.Assert.assertNull;
 public class GameTest {
 
     Game game;
-    Room room, room2;
+    Room room1, room2, room3, room4;
     Player player1, player2;
-    Treasure treasure;
-    Enemy enemy;
+    Treasure treasure1, treasure2;
+    Enemy enemy1, enemy2, enemy3;
     DwarvesBarbariansKnights character1;
     Clerics character2;
     HealingTool healingTool;
@@ -28,11 +28,17 @@ public class GameTest {
         healingTool = new HealingTool("Snake Milk", 25);
         character1 = new DwarvesBarbariansKnights(weapon);
         character2 = new Clerics(healingTool);
-        treasure = new Treasure("Gold Doubloons", 15);
-        enemy = new Enemy("Goblin", 50, 20, treasure);
+        treasure1 = new Treasure("Gold Doubloons", 15);
+        treasure2 = new Treasure("Rubies", 150);
+        enemy1 = new Enemy("Goblin", 50, 20, treasure1);
+        enemy2 = new Enemy("Harpy", 40, 25, treasure2);
+        enemy3 = new Enemy("Giant Ned", 40, 5000, treasure2);
         player1 = new Player("Colin", 120, character1);
         player2 = new Player("Samantha", 130, character2);
-        room = new Room("Leith Walk Costa", enemy);
+        room1 = new Room("Leith Walk Costa", enemy1);
+        room2 = new Room("Tesco", null);
+        room3 = new Room("The Harp and Castle", enemy2);
+        room4 = new Room("The Meadows", enemy3);
         game = new Game();
 
     }
@@ -45,7 +51,7 @@ public class GameTest {
 
     @Test
     public void canAddRoom(){
-        game.addRoom(room);
+        game.addRoom(room1);
         assertEquals(1, game.getRoomsSize());
     }
 
@@ -58,9 +64,8 @@ public class GameTest {
 
     @Test
     public void canCheckRoomNoEnemy(){
-        room2 = new Room("Tesco", null);
-        room2.addTreasure(treasure);
-        room2.addTreasure(treasure);
+        room2.addTreasure(treasure1);
+        room2.addTreasure(treasure2);
         game.checkRoom(room2, player1);
         assertEquals(2, player1.getTreasureBagSize());
         assertEquals(0, room2.getTreasureSize());
@@ -70,8 +75,8 @@ public class GameTest {
     public void canInitiateAttack(){
         game.addPlayer(player1);
         game.addPlayer(player2);
-        game.getTotals(room);
-        assertEquals(20, room.getEnemy().getHealthPoints());
+        game.getTotals(room1);
+        assertEquals(20, room1.getEnemy().getHealthPoints());
     }
 
     @Test
@@ -83,15 +88,15 @@ public class GameTest {
 
     @Test
     public void canAttackEnemy(){
-        game.attackEnemy(20, room);
-        assertEquals(30, room.getEnemy().getHealthPoints());
+        game.attackEnemy(20, room1);
+        assertEquals(30, room1.getEnemy().getHealthPoints());
     }
 
     @Test
     public void canDamagePlayers(){
         game.addPlayer(player1);
         game.addPlayer(player2);
-        game.playerDamage(20);
+        game.playerDamage(20, room1);
         assertEquals(100, game.getPlayer(0).getHealth());
     }
 
@@ -99,8 +104,29 @@ public class GameTest {
     public void canRemoveDeadPlayer(){
         game.addPlayer(player1);
         game.addPlayer(player2);
-        game.playerDamage(120);
+        game.playerDamage(120, room1);
         assertEquals(1, game.getPlayersSize());
+    }
+
+    @Test
+    public void canLoopRoomsAndWin(){
+        game.addPlayer(player1);
+        game.addPlayer(player2);
+        game.addRoom(room1);
+        game.addRoom(room2);
+        game.addRoom(room3);
+        game.loopRooms();
+        assertEquals(1, game.getPlayersSize());
+    }
+
+    @Test
+    public void canLoopRoomsAndLose(){
+        game.addPlayer(player1);
+        game.addRoom(room1);
+        game.addRoom(room2);
+        game.addRoom(room4);
+        game.loopRooms();
+        assertEquals(0, game.getPlayersSize());
     }
 
 }
