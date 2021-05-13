@@ -2,6 +2,6 @@ package behaviours;
 
 public interface IPlay {
 
-    void playerAction();
+    int playerAction();
 
 }

@@ -1,4 +1,7 @@
 import behaviours.IPlay;
+import rooms.Treasure;
+
+import java.util.ArrayList;
 
 public class Player {
 
@@ -6,11 +9,13 @@ public class Player {
     private String name;
     private int health;
     private IPlay character;
+    private ArrayList<Treasure> treasureBag;
 
     public Player(String name, int health, IPlay character){
         this.name = name;
         this.health = health;
         this.character = character;
+        this.treasureBag = new ArrayList<>();
     }
 
     public String getName() {
@@ -35,5 +40,13 @@ public class Player {
 
     public void setCharacter(IPlay character) {
         this.character = character;
+    }
+
+    public void collectTreasure(Treasure treasure){
+        this.treasureBag.add(treasure);
+    }
+
+    public int getTreasureBagSize(){
+        return this.treasureBag.size();
     }
 }

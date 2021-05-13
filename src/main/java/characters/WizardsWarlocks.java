@@ -13,7 +13,8 @@ public class WizardsWarlocks implements IPlay {
             this.spell = spell;
             this.creature = creature;
         }
-    public void playerAction() {
+    public int playerAction() {
+            return this.spell.getDamage();
 
     }
 }

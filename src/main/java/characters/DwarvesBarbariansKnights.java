@@ -11,8 +11,8 @@ public class DwarvesBarbariansKnights implements IPlay {
         this.weapon = weapon;
     }
 
-    public void playerAction() {
-
+    public int playerAction() {
+        return this.weapon.getDamage();
     }
 
     public Weapon getWeapon() {
