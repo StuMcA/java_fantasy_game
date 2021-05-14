@@ -1,24 +1,31 @@
-import characters.Clerics;
+import characters.Cleric;
+import characters.Species;
+import items.HealingObject;
 import org.junit.Before;
 import org.junit.Test;
-import playerActions.HealingTool;
 
 import static org.junit.Assert.assertEquals;
 
 public class ClericTest {
 
-    Clerics clerics;
-    HealingTool healingTool;
+    Cleric cleric;
+    HealingObject healingObject;
 
     @Before
-    public void setUp(){
-        healingTool = new HealingTool("Glass Acorn", 30);
-        clerics = new Clerics(healingTool);
+    public void setUp() {
+        healingObject = new HealingObject("Glass Acorn", 30, 10, 300);
+        cleric = new Cleric("Genevieve", Species.DWARF, 100);
     }
 
     @Test
-    public void canGetHealingPower(){
-        assertEquals(-30, clerics.playerAction());
+    public void canWieldHealingObjectInLeftHand() {
+        cleric.setLeftHand(healingObject);
+        assertEquals(healingObject, cleric.getLeftHand());
+    }
+    @Test
+    public void canWieldHealingObjectInRightHand() {
+        cleric.setRightHand(healingObject);
+        assertEquals(healingObject, cleric.getRightHand());
     }
 
 }

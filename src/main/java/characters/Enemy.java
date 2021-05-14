@@ -1,6 +1,6 @@
 package characters;
 
-import rooms.Treasure;
+import items.Treasure;
 
 public class Enemy {
 

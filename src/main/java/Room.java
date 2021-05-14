@@ -1,5 +1,5 @@
 import characters.Enemy;
-import rooms.Treasure;
+import items.Treasure;
 
 import java.util.ArrayList;
 
