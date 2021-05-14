@@ -2,7 +2,7 @@ package items;
 
 import behaviours.IWield;
 
-public class Weapon extends Item implements IWield {
+public class Weapon extends Item {
 
     private WeaponType weaponType;
     private int damage;

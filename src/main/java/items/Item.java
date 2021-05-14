@@ -1,8 +1,9 @@
 package items;
 
 import behaviours.IStore;
+import behaviours.IWield;
 
-public abstract class Item implements IStore {
+public abstract class Item implements IStore, IWield {
 
     private int value;
 

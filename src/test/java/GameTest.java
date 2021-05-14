@@ -26,8 +26,8 @@ public class GameTest {
         healingObject = new HealingObject("Snake Milk", 25, 30, 150);
         character1 = new Knight("Hansel", Species.ELF, 80);
         character2 = new Cleric("Genevieve", Species.HUMAN, 100);
-        treasure1 = new Treasure("Gold Doubloons", 15);
-        treasure2 = new Treasure("Rubies", 150);
+        treasure1 = Treasure.DIAMOND;
+        treasure2 = Treasure.RUBY;
         enemy1 = new Enemy("Goblin", 50, 20, treasure1);
         enemy2 = new Enemy("Harpy", 40, 25, treasure2);
         enemy3 = new Enemy("Giant Ned", 40, 5000, treasure2);
