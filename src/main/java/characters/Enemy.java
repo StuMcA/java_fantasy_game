@@ -1,19 +1,29 @@
 package characters;
 
-import items.Treasure;
+import behaviours.IStore;
 
-public class Enemy {
+import java.util.ArrayList;
 
-    private String type;
-    private int healthPoints;
-    private int attackPoints;
-    private Treasure treasure;
+public class Enemy extends GameCharacter {
 
-    public Enemy(String type, int healthPoints, int attackPoints, Treasure treasure) {
-        this.type = type;
-        this.healthPoints = healthPoints;
-        this.attackPoints = attackPoints;
-        this.treasure = treasure;
+    private ArrayList<IStore> loot;
+    private int attackPower;
+
+    public Enemy(String name, Species species, int healthPoints) {
+        super(name, species, healthPoints);
+        this.loot = new ArrayList<>();
+        this.attackPower = 30;
     }
 
+    public ArrayList<IStore> getLoot() {
+        return loot;
+    }
+
+    public void addLoot(IStore loot) {
+        this.loot.add(loot);
+    }
+
+    public int getAttackPower() {
+        return attackPower;
+    }
 }

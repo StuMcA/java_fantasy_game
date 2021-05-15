@@ -33,25 +33,25 @@ public class Game {
         return this.gameCharacters.get(index);
     }
 
-    public void loopRooms() {
-        for (Room room : this.rooms) {
-            this.checkRoom(room, this.getPlayer(0));
-        }
-        System.out.println("You've won, woohoo!");
-    }
+//    public void loopRooms() {
+//        for (Room room : this.rooms) {
+//            this.checkRoom(room, this.getPlayer(0));
+//        }
+//        System.out.println("You've won, woohoo!");
+//    }
 
-    public void checkRoom(Room room, GameCharacter gameCharacter) {
-        System.out.println("You've entered " + room.getRoomName());
-        if (room.getEnemy() == null) {
-            for (IStore treasure : room.getTreasureList()) {
-                gameCharacter.addToInventory(treasure);
-            }
-            room.removeTreasure();
-        } else {
-//            this.getTotals(room);
-        }
-
-    }
+//    public void checkRoom(Room room, GameCharacter gameCharacter) {
+//        System.out.println("You've entered " + room.getRoomName());
+//        if (room.getEnemy() == null) {
+//            for (IStore treasure : room.getTreasureList()) {
+//                gameCharacter.addToInventory(treasure);
+//            }
+//            room.removeTreasure();
+//        } else {
+////            this.getTotals(room);
+//        }
+//
+//    }
 //    public void getTotals(Room room) {
 //        System.out.println("In the room there is a " + room.getEnemy().getType());
 //            int totalAttack = 0;
@@ -84,12 +84,12 @@ public class Game {
         }
     }
 
-    public void attackEnemy(int totalAttack, Room room){
-        room.getEnemy().setHealthPoints(
-                room.getEnemy().getHealthPoints() - totalAttack
-        );
-        System.out.println("You did " + totalAttack + "damage");
-    }
+//    public void attackEnemy(int totalAttack, Room room){
+//        room.getEnemy().setHealthPoints(
+//                room.getEnemy().getHealthPoints() - totalAttack
+//        );
+//        System.out.println("You did " + totalAttack + "damage");
+//    }
 
     public void playerDamage(int damage, Room room){
         for(GameCharacter gameCharacter : this.gameCharacters){

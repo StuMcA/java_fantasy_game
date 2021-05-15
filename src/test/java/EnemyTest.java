@@ -1,4 +1,4 @@
-import characters.Goblin;
+import characters.Enemy;
 import characters.Species;
 import items.Stash;
 import items.Treasure;
@@ -7,15 +7,15 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class GoblinTest {
+public class EnemyTest {
 
-    private Goblin goblin;
+    private Enemy goblin;
     private Treasure treasure;
     private Stash stash;
 
     @Before
     public void setUp() {
-        this.goblin = new Goblin("Loz", Species.GOBLIN, 20);
+        this.goblin = new Enemy("Loz", Species.GOBLIN, 20);
         this.treasure = Treasure.COIN;
         this.stash = new Stash(treasure, 100);
     }
