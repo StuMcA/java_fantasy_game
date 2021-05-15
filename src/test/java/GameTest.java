@@ -67,13 +67,13 @@ public class GameTest {
     @Test
     public void hitterCanHit() {
         knight1.attack(enemy1);
-        assertEquals(70, enemy1.getHealthPoints());
+        assertEquals(67, enemy1.getHealthPoints());
     }
     @Test
     public void hitterCanHitWithBothHands() {
         knight1.setRightHand(weapon);
         knight1.attack(enemy1);
-        assertEquals(40, enemy1.getHealthPoints());
+        assertEquals(34, enemy1.getHealthPoints());
     }
 
     @Test
