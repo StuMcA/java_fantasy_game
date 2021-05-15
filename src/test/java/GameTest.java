@@ -87,57 +87,51 @@ public class GameTest {
         game.addPlayer(cleric1);
         room1.addEnemy(enemy1);
         game.battle(room1);
-//        assertEquals(20, room1.getEnemy().getHealthPoints());
+        assertEquals(0, room1.getEnemyList().size());
     }
 
-//    @Test
-//    public void canHealPlayer(){
-//        game.addPlayer(knight1);
-//        game.healPlayers(20);
-//        assertEquals(140, knight1.getHealthPoints());
-//    }
+    @Test
+    public void canRemoveDeadPlayer(){
+        game.addPlayer(knight1);
+        room1.addEnemy(enemy1);
+        game.enemyTurn(room1);
+        game.enemyTurn(room1);
+        game.enemyTurn(room1);
+        game.enemyTurn(room1);
+        assertEquals(0, game.getPlayersSize());
+    }
 
-//    @Test
-//    public void canAttackEnemy(){
-//        game.attackEnemy(20, room1);
-//        assertEquals(30, room1.getEnemy().getHealthPoints());
-//    }
+    @Test
+    public void canLoopRoomsAndWin(){
+        game.addPlayer(knight1);
+        game.addPlayer(cleric1);
+        game.addRoom(room1);
+        room1.addEnemy(enemy1);
+        game.addRoom(room2);
+        room2.addEnemy(enemy2);
+        game.addRoom(room3);
+        room3.addEnemy(enemy1);
+        room3.addEnemy(enemy2);
+        game.loopRooms();
+        assertEquals(2, game.getPlayersSize());
+    }
 
-//    @Test
-//    public void canDamagePlayers(){
-//        game.addPlayer(knight1);
-//        game.addPlayer(cleric1);
-//        game.playerDamage(20, room1);
-//        assertEquals(100, game.getPlayer(0).getHealthPoints());
-//    }
-
-//    @Test
-//    public void canRemoveDeadPlayer(){
-//        game.addPlayer(knight1);
-//        game.addPlayer(cleric1);
-//        game.playerDamage(120, room1);
-//        assertEquals(1, game.getPlayersSize());
-//    }
-
-//    @Test
-//    public void canLoopRoomsAndWin(){
-//        game.addPlayer(knight1);
-//        game.addPlayer(cleric1);
-//        game.addRoom(room1);
-//        game.addRoom(room2);
-//        game.addRoom(room3);
-//        game.loopRooms();
-//        assertEquals(1, game.getPlayersSize());
-//    }
-
-//    @Test
-//    public void canLoopRoomsAndLose(){
-//        game.addPlayer(knight1);
-//        game.addRoom(room1);
-//        game.addRoom(room2);
-//        game.addRoom(room4);
-//        game.loopRooms();
-//        assertEquals(0, game.getPlayersSize());
-//    }
+    @Test
+    public void canLoopRoomsAndLose(){
+        game.addPlayer(knight1);
+        game.addRoom(room1);
+        room1.addEnemy(enemy1);
+        room1.addEnemy(enemy2);
+        game.addRoom(room2);
+        room2.addEnemy(enemy3);
+        game.addRoom(room4);
+        room4.addEnemy(enemy3);
+        room4.addEnemy(enemy3);
+        room4.addEnemy(enemy3);
+        room4.addEnemy(enemy3);
+        room4.addEnemy(enemy3);
+        game.loopRooms();
+        assertEquals(0, game.getPlayersSize());
+    }
 
 }

@@ -15,6 +15,10 @@ public class Weapon extends Item {
         this.speed = speed;
     }
 
+    public String getName() {
+        return weaponType.getName();
+    }
+
     public int getPower() {
         return this.damage;
     }

@@ -18,6 +18,7 @@ public abstract class GameCharacter implements IHit {
     private double healthMultiplier;
     private double damageMultiplier;
     private double defenseMultiplier;
+    private boolean isDead;
 
     public GameCharacter(String name, Species species, int healthPoints){
         this.name = name;
@@ -29,6 +30,7 @@ public abstract class GameCharacter implements IHit {
         this.healthMultiplier = 1;
         this.damageMultiplier = 1;
         this.defenseMultiplier = 1;
+        this.isDead = false;
     }
 
     public String getName() {
@@ -97,6 +99,14 @@ public abstract class GameCharacter implements IHit {
 
     public void setDefenseMultiplier(double defenseMultiplier) {
         this.defenseMultiplier = defenseMultiplier;
+    }
+
+    public boolean isDead() {
+        return isDead;
+    }
+
+    public void setDead() {
+        isDead = true;
     }
 
     public int attack(GameCharacter target) {

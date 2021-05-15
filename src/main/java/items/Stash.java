@@ -16,6 +16,10 @@ public class Stash implements IStore {
         return treasure;
     }
 
+    public String getName() {
+        return treasure.getName();
+    }
+
     public int getQuantity() {
         return quantity;
     }

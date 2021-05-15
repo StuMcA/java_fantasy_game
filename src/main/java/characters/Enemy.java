@@ -26,4 +26,11 @@ public class Enemy extends GameCharacter {
     public int getAttackPower() {
         return attackPower;
     }
+
+
+    public int attack(GameCharacter target) {
+        int damageDone = this.getAttackPower();
+        target.setHealthPoints(target.getHealthPoints() - damageDone);
+        return damageDone;
+    }
 }

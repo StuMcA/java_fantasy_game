@@ -1,6 +1,5 @@
 package items;
 
-import behaviours.IWield;
 
 public class HealingObject extends Item {
 
@@ -16,7 +15,8 @@ public class HealingObject extends Item {
         this.numberUses = numberUses;
     }
 
-    public String getType() {
+
+    public String getName() {
         return type;
     }
 
