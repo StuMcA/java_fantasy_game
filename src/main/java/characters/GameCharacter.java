@@ -15,6 +15,9 @@ public abstract class GameCharacter implements IHit {
     private ArrayList<IStore> inventory;
     private IWield leftHand;
     private IWield rightHand;
+    private double healthMultiplier;
+    private double damageMultiplier;
+    private double defenseMultiplier;
 
     public GameCharacter(String name, Species species, int healthPoints){
         this.name = name;
@@ -23,6 +26,9 @@ public abstract class GameCharacter implements IHit {
         this.leftHand = null;
         this.rightHand = null;
         this.inventory = new ArrayList<>();
+        this.healthMultiplier = 1;
+        this.damageMultiplier = 1;
+        this.defenseMultiplier = 1;
     }
 
     public String getName() {
@@ -67,5 +73,29 @@ public abstract class GameCharacter implements IHit {
 
     public void setRightHand(IWield weapon) {
         this.rightHand = weapon;
+    }
+
+    public double getHealthMultiplier() {
+        return healthMultiplier;
+    }
+
+    public void setHealthMultiplier(double healthMultiplier) {
+        this.healthMultiplier = healthMultiplier;
+    }
+
+    public double getDamageMultiplier() {
+        return damageMultiplier;
+    }
+
+    public void setDamageMultiplier(double damageMultiplier) {
+        this.damageMultiplier = damageMultiplier;
+    }
+
+    public double getDefenseMultiplier() {
+        return defenseMultiplier;
+    }
+
+    public void setDefenseMultiplier(double defenseMultiplier) {
+        this.defenseMultiplier = defenseMultiplier;
     }
 }

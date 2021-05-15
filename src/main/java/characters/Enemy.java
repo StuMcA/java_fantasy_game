@@ -16,36 +16,4 @@ public class Enemy {
         this.treasure = treasure;
     }
 
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public int getHealthPoints() {
-        return healthPoints;
-    }
-
-    public void setHealthPoints(int healthPoints) {
-        this.healthPoints = healthPoints;
-    }
-
-    public int getAttackPoints() {
-        return attackPoints;
-    }
-
-    public void setAttackPoints(int attackPoints) {
-        this.attackPoints = attackPoints;
-    }
-
-    public Treasure getTreasure() {
-        return treasure;
-    }
-
-    public void setTreasure(Treasure treasure) {
-        this.treasure = treasure;
-    }
 }

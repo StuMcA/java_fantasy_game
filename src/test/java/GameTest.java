@@ -60,14 +60,14 @@ public class GameTest {
 //        assertEquals("Colin", game.getPlayer(0).getName());
 //    }
 
-    @Test
-    public void canCheckRoomNoEnemy(){
-        room2.addTreasure(treasure1);
-        room2.addTreasure(treasure2);
-        game.checkRoom(room2, knight1);
-        assertEquals(2, knight1.getInventorySize());
-        assertEquals(0, room2.getTreasureSize());
-    }
+//    @Test
+//    public void canCheckRoomNoEnemy(){
+//        room2.addTreasure(treasure1);
+//        room2.addTreasure(treasure2);
+//        game.checkRoom(room2, knight1);
+//        assertEquals(2, knight1.getInventorySize());
+//        assertEquals(0, room2.getTreasureSize());
+//    }
 
 //    @Test
 //    public void canInitiateAttack(){

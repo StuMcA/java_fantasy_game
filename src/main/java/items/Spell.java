@@ -2,7 +2,7 @@ package items;
 
 import behaviours.IWield;
 
-public class Spell {
+public class Spell implements IWield {
 
     private SpellType spellType;
     private int spellPower;

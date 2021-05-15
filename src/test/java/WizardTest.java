@@ -1,3 +1,4 @@
+import behaviours.IWield;
 import characters.Species;
 import characters.Wizard;
 import items.Spell;

@@ -1,19 +1,19 @@
-import characters.Enemy;
-import items.Treasure;
+import behaviours.IStore;
+import characters.GameCharacter;
 
 import java.util.ArrayList;
 
 public class Room {
 
     private String roomName;
-    private ArrayList<Treasure> treasureList;
-    private Enemy enemy;
+    private ArrayList<IStore> treasureList;
+    private ArrayList<GameCharacter> enemies;
     private boolean roomComplete;
 
-    public Room(String roomName, Enemy enemy){
+    public Room(String roomName){
         this.roomName = roomName;
         this.treasureList = new ArrayList<>();
-        this.enemy = enemy;
+        this.enemies = new ArrayList<>();
         this.roomComplete = false;
     }
 
@@ -21,15 +21,11 @@ public class Room {
         return roomName;
     }
 
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
-    }
-
     public int getTreasureSize() {
         return this.treasureList.size();
     }
 
-    public void addTreasure(Treasure treasure) {
+    public void addTreasure(IStore treasure) {
         this.treasureList.add(treasure);
     }
 
@@ -37,16 +33,16 @@ public class Room {
         this.treasureList.removeAll(this.treasureList);
     }
 
-    public ArrayList<Treasure> getTreasureList(){
+    public ArrayList<IStore> getTreasureList(){
         return this.treasureList;
     }
 
-    public Enemy getEnemy() {
-        return enemy;
+    public ArrayList<GameCharacter> getEnemyList() {
+        return enemies;
     }
 
-    public void setEnemy(Enemy enemy) {
-        this.enemy = enemy;
+    public void addEnemy(GameCharacter enemy) {
+        this.enemies.add(enemy);
     }
 
     public boolean isRoomComplete() {

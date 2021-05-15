@@ -7,6 +7,9 @@ public class Wizard extends GameCharacter implements ICast {
 
         public Wizard(String name, Species species, int healthPoints){
             super(name, species, healthPoints);
+            super.setHealthMultiplier(1.5);
+            super.setDamageMultiplier(0.4);
+            super.setDefenseMultiplier(0.3);
         }
 
     public IWield getSpell() {

@@ -2,7 +2,7 @@ package items;
 
 import behaviours.IWield;
 
-public class HealingObject extends Item implements IWield {
+public class HealingObject extends Item {
 
     private String type;
     private int healingPower;
