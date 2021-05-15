@@ -19,8 +19,16 @@ public class Enemy extends GameCharacter {
         return loot;
     }
 
+    public int getLootSize() {
+        return this.loot.size();
+    }
+
     public void addLoot(IStore loot) {
         this.loot.add(loot);
+    }
+
+    public void dropLoot() {
+        this.loot.removeAll(loot);
     }
 
     public int getAttackPower() {

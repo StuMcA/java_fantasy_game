@@ -1,6 +1,8 @@
 import behaviours.IHeal;
 import behaviours.IStore;
+import characters.Enemy;
 import characters.GameCharacter;
+import items.Stash;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -45,7 +47,7 @@ public class Game {
         return playerCharacters;
     }
 
-        public void loopRooms() {
+        public void exploreRoomsInDungeon() {
         for (Room room : this.rooms) {
             if (this.gameOver) {
                 break;
@@ -58,10 +60,7 @@ public class Game {
     public void checkRoom(Room room, GameCharacter gameCharacter) {
         System.out.println("You've entered " + room.getRoomName());
         if (room.getEnemyList().size() == 0) {
-            for (IStore treasure : room.getTreasureList()) {
-                gameCharacter.addToInventory(treasure);
-                System.out.println("You picked up " + treasure.getName() + " worth £" + treasure.getValue());
-            }
+            this.lootTaken(gameCharacter, room.getTreasureList());
             room.removeTreasure();
         } else {
             this.battle(room);
@@ -93,7 +92,7 @@ public class Game {
                 GameCharacter targetEnemy = room.getEnemyList().get(generateRandomTarget(room.getEnemyList()));
                 int damageDone = fighter.attack(targetEnemy);
                 System.out.println(fighter.getName() + " hit " + targetEnemy.getName() + " for " + damageDone + " damage");
-                this.checkForDead(room.getEnemyList());
+                this.checkForDead(fighter, room.getEnemyList());
             }
         }
     }
@@ -104,7 +103,7 @@ public class Game {
                 GameCharacter targetPlayer = this.getPlayer(generateRandomTarget(this.getPlayerCharacters()));
                 int damageDone = enemy.attack(targetPlayer);
                 System.out.println(enemy.getName() + " attacked " + targetPlayer.getName() + ". It did " + damageDone + " damage.");
-                this.checkForDead(this.getPlayerCharacters());
+                this.checkForDead(enemy, this.getPlayerCharacters());
             }
         }
     }
@@ -118,14 +117,27 @@ public class Game {
         }
     }
 
-    public void checkForDead(ArrayList<GameCharacter> characterList) {
+    public void checkForDead(GameCharacter attacker, ArrayList<GameCharacter> characterList) {
         for (GameCharacter gameCharacter : characterList)
             if (gameCharacter.getHealthPoints() <= 0) {
                 gameCharacter.setDead();
                 System.out.println(gameCharacter.getName() + " died");
+                if (gameCharacter instanceof Enemy) {
+                    Enemy enemy = (Enemy) gameCharacter;
+                    this.lootTaken(attacker,  enemy.getLoot());
+                    enemy.dropLoot();
+                }
         }
         characterList.removeIf(GameCharacter::isDead);
     }
+
+    public void lootTaken(GameCharacter player, ArrayList<IStore> loot) {
+        for (IStore lootItem : loot) {
+            player.addToInventory(lootItem);
+            System.out.println(lootItem.getName() + " was found by " + player.getName());
+        }
+    }
+
 
     public void battleTurn(Room room) {
         this.fighterTurn(room);

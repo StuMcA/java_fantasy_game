@@ -112,7 +112,7 @@ public class GameTest {
         game.addRoom(room3);
         room3.addEnemy(enemy1);
         room3.addEnemy(enemy2);
-        game.loopRooms();
+        game.exploreRoomsInDungeon();
         assertEquals(2, game.getPlayersSize());
     }
 
@@ -130,8 +130,18 @@ public class GameTest {
         room4.addEnemy(enemy3);
         room4.addEnemy(enemy3);
         room4.addEnemy(enemy3);
-        game.loopRooms();
+        game.exploreRoomsInDungeon();
         assertEquals(0, game.getPlayersSize());
+    }
+
+    @Test
+    public void canTakeEnemyLoot() {
+        enemy3.addLoot(treasure1);
+        room1.addEnemy(enemy3);
+        knight1.attack(enemy3);
+        knight1.attack(enemy3);
+        game.checkForDead(knight1, room1.getEnemyList());
+        assertEquals(1, knight1.getInventorySize());
     }
 
 }
