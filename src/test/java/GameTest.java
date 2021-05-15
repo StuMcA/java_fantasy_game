@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class GameTest {
 
@@ -46,6 +47,7 @@ public class GameTest {
     public void canAddRoom(){
         game.addRoom(room1);
         assertEquals(1, game.getRoomsSize());
+
     }
 
     @Test
@@ -67,13 +69,13 @@ public class GameTest {
     @Test
     public void hitterCanHit() {
         knight1.attack(enemy1);
-        assertEquals(67, enemy1.getHealthPoints());
+        assertTrue(enemy1.getHealthPoints() < 100);
     }
     @Test
     public void hitterCanHitWithBothHands() {
         knight1.setRightHand(weapon);
         knight1.attack(enemy1);
-        assertEquals(34, enemy1.getHealthPoints());
+        assertTrue(enemy1.getHealthPoints() < 100);
     }
 
     @Test
@@ -94,6 +96,8 @@ public class GameTest {
     public void canRemoveDeadPlayer(){
         game.addPlayer(knight1);
         room1.addEnemy(enemy1);
+        game.enemyTurn(room1);
+        game.enemyTurn(room1);
         game.enemyTurn(room1);
         game.enemyTurn(room1);
         game.enemyTurn(room1);
@@ -138,6 +142,8 @@ public class GameTest {
     public void canTakeEnemyLoot() {
         enemy3.addLoot(treasure1);
         room1.addEnemy(enemy3);
+        knight1.attack(enemy3);
+        knight1.attack(enemy3);
         knight1.attack(enemy3);
         knight1.attack(enemy3);
         game.checkForDead(knight1, room1.getEnemyList());

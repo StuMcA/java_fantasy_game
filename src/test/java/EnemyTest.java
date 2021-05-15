@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class EnemyTest {
 
@@ -39,5 +40,11 @@ public class EnemyTest {
         goblin.addLoot(stash);
         goblin.dropLoot();
         assertEquals(0, goblin.getLootSize());
+    }
+
+    @Test
+    public void canAttackWithBasePowerOnly() {
+        goblin.attack(knight);
+        assertTrue(knight.getHealthPoints() < 150);
     }
 }

@@ -5,6 +5,7 @@ import behaviours.IStore;
 import behaviours.IWield;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public abstract class GameCharacter implements IHit {
 
@@ -15,6 +16,7 @@ public abstract class GameCharacter implements IHit {
     private ArrayList<IStore> inventory;
     private IWield leftHand;
     private IWield rightHand;
+    private int baseAttackPower;
     private double healthMultiplier;
     private double damageMultiplier;
     private double defenseMultiplier;
@@ -26,6 +28,7 @@ public abstract class GameCharacter implements IHit {
         this.healthPoints = healthPoints;
         this.leftHand = null;
         this.rightHand = null;
+        this.baseAttackPower = 0;
         this.inventory = new ArrayList<>();
         this.healthMultiplier = 1;
         this.damageMultiplier = 1;
@@ -77,6 +80,14 @@ public abstract class GameCharacter implements IHit {
         this.rightHand = weapon;
     }
 
+    public int getBaseAttackPower() {
+        return this.baseAttackPower;
+    }
+
+    public void setBaseAttackPower(int baseAttackPower) {
+        this.baseAttackPower = baseAttackPower;
+    }
+
     public double getHealthMultiplier() {
         return healthMultiplier;
     }
@@ -113,8 +124,13 @@ public abstract class GameCharacter implements IHit {
         return character.getSpecies().getDamageMultiplier() * character.getDamageMultiplier();
     }
 
+    public double getRandomMultiplier() {
+        Random randomNumber = new Random();
+        return 0.80 + (1.20 - 0.80) * randomNumber.nextDouble();
+    }
+
     public int attack(GameCharacter target) {
-        int damageDone = 0;
+        int damageDone = this.getBaseAttackPower();
         if (!(this.getLeftHand() == null)) {
             damageDone += this.getLeftHand().getPower();
         }
@@ -122,7 +138,7 @@ public abstract class GameCharacter implements IHit {
             damageDone += this.getRightHand().getPower();
 
         }
-        damageDone = (int) (damageDone * getDamageMultiplier() / target.getDefenseMultiplier());
+        damageDone = (int) (damageDone * getDamageMultiplier() * getRandomMultiplier() / target.getDefenseMultiplier());
         target.setHealthPoints(target.getHealthPoints() - damageDone);
         return damageDone;
     }

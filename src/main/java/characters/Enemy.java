@@ -7,12 +7,11 @@ import java.util.ArrayList;
 public class Enemy extends GameCharacter {
 
     private ArrayList<IStore> loot;
-    private int attackPower;
 
     public Enemy(String name, Species species, int healthPoints) {
         super(name, species, healthPoints);
         this.loot = new ArrayList<>();
-        this.attackPower = 30;
+        this.setBaseAttackPower(30);
     }
 
     public ArrayList<IStore> getLoot() {
@@ -31,14 +30,7 @@ public class Enemy extends GameCharacter {
         this.loot.removeAll(loot);
     }
 
-    public int getAttackPower() {
-        return attackPower;
-    }
 
 
-    public int attack(GameCharacter target) {
-        int damageDone = this.getAttackPower();
-        target.setHealthPoints(target.getHealthPoints() - damageDone);
-        return damageDone;
-    }
+
 }
