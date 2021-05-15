@@ -99,7 +99,7 @@ public abstract class GameCharacter implements IHit {
         this.defenseMultiplier = defenseMultiplier;
     }
 
-    public void attack(GameCharacter target) {
+    public int attack(GameCharacter target) {
         int damageDone = 0;
         if (!(this.getLeftHand() == null)) {
             damageDone += this.getLeftHand().getPower();
@@ -109,9 +109,10 @@ public abstract class GameCharacter implements IHit {
 
         }
         target.setHealthPoints(target.getHealthPoints() - damageDone);
+        return damageDone;
     }
 
-    public void heal(GameCharacter target) {
+    public int heal(GameCharacter target) {
         int healingDone = 0;
         if (!(this.getLeftHand() == null)) {
             healingDone += this.getLeftHand().getPower();
@@ -120,5 +121,6 @@ public abstract class GameCharacter implements IHit {
             healingDone += this.getRightHand().getPower();
         }
         target.setHealthPoints(target.getHealthPoints() + healingDone);
+        return healingDone;
     }
 }

@@ -81,13 +81,14 @@ public class GameTest {
         cleric1.heal(knight1);
         assertEquals(145, knight1.getHealthPoints());
     }
-//    @Test
-//    public void canInitiateAttack(){
-//        game.addPlayer(knight1);
-//        game.addPlayer(cleric1);
-//        game.getTotals(room1);
+    @Test
+    public void canFight(){
+        game.addPlayer(knight1);
+        game.addPlayer(cleric1);
+        room1.addEnemy(enemy1);
+        game.battle(room1);
 //        assertEquals(20, room1.getEnemy().getHealthPoints());
-//    }
+    }
 
 //    @Test
 //    public void canHealPlayer(){
@@ -110,13 +111,13 @@ public class GameTest {
 //        assertEquals(100, game.getPlayer(0).getHealthPoints());
 //    }
 
-    @Test
-    public void canRemoveDeadPlayer(){
-        game.addPlayer(knight1);
-        game.addPlayer(cleric1);
-        game.playerDamage(120, room1);
-        assertEquals(1, game.getPlayersSize());
-    }
+//    @Test
+//    public void canRemoveDeadPlayer(){
+//        game.addPlayer(knight1);
+//        game.addPlayer(cleric1);
+//        game.playerDamage(120, room1);
+//        assertEquals(1, game.getPlayersSize());
+//    }
 
 //    @Test
 //    public void canLoopRoomsAndWin(){

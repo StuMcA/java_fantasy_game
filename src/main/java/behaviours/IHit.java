@@ -4,5 +4,5 @@ import characters.GameCharacter;
 
 public interface IHit {
 
-    void attack(GameCharacter target);
+    int attack(GameCharacter target);
 }
