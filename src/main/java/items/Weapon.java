@@ -15,5 +15,7 @@ public class Weapon extends Item {
         this.speed = speed;
     }
 
-
+    public int getPower() {
+        return this.damage;
+    }
 }

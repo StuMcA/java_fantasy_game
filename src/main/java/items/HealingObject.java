@@ -39,4 +39,8 @@ public class HealingObject extends Item {
     public void setNumberUses(int numberUses) {
         this.numberUses = numberUses;
     }
+
+    public int getPower() {
+         return this.healingPower;
+    }
 }

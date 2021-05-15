@@ -1,10 +1,8 @@
+import behaviours.IStore;
 import characters.*;
-import items.HealingObject;
-import items.WeaponType;
+import items.*;
 import org.junit.Before;
 import org.junit.Test;
-import items.Weapon;
-import items.Treasure;
 
 import static org.junit.Assert.assertEquals;
 
@@ -13,10 +11,8 @@ public class GameTest {
     Game game;
     Room room1, room2, room3, room4;
     GameCharacter cleric1, knight1;
-    Treasure treasure1, treasure2;
+    IStore treasure1, treasure2;
     Enemy enemy1, enemy2, enemy3;
-    Knight character1;
-    Cleric character2;
     HealingObject healingObject;
     Weapon weapon;
 
@@ -24,10 +20,8 @@ public class GameTest {
     public void setUp(){
         weapon = new Weapon(WeaponType.MACE, 30, 1, 500);
         healingObject = new HealingObject("Snake Milk", 25, 30, 150);
-        character1 = new Knight("Hansel", Species.ELF, 80);
-        character2 = new Cleric("Genevieve", Species.HUMAN, 100);
-        treasure1 = Treasure.DIAMOND;
-        treasure2 = Treasure.RUBY;
+        treasure1 = new Stash(Treasure.DIAMOND, 5);
+        treasure2 = new Stash(Treasure.RUBY, 10);
         enemy1 = new Enemy("Goblin", Species.GOBLIN, 100);
         enemy2 = new Enemy("Harpy", Species.GOBLIN, 120);
         enemy3 = new Enemy("Giant Ned",Species.GOBLIN, 60);
@@ -38,7 +32,8 @@ public class GameTest {
         room3 = new Room("The Harp and Castle");
         room4 = new Room("The Meadows");
         game = new Game();
-
+        knight1.setLeftHand(weapon);
+        cleric1.setLeftHand(healingObject);
     }
 
     @Test
@@ -53,22 +48,39 @@ public class GameTest {
         assertEquals(1, game.getRoomsSize());
     }
 
-//    @Test
-//    public void canGetPlayer(){
-//        game.addPlayer(knight1);
-//        game.addPlayer(cleric1);
-//        assertEquals("Colin", game.getPlayer(0).getName());
-//    }
+    @Test
+    public void canGetPlayer(){
+        game.addPlayer(knight1);
+        game.addPlayer(cleric1);
+        assertEquals("Colin", game.getPlayer(0).getName());
+    }
 
-//    @Test
-//    public void canCheckRoomNoEnemy(){
-//        room2.addTreasure(treasure1);
-//        room2.addTreasure(treasure2);
-//        game.checkRoom(room2, knight1);
-//        assertEquals(2, knight1.getInventorySize());
-//        assertEquals(0, room2.getTreasureSize());
-//    }
+    @Test
+    public void canCheckRoomNoEnemy(){
+        room2.addTreasure(treasure1);
+        room2.addTreasure(treasure2);
+        game.checkRoom(room2, knight1);
+        assertEquals(2, knight1.getInventorySize());
+        assertEquals(0, room2.getTreasureSize());
+    }
 
+    @Test
+    public void hitterCanHit() {
+        knight1.attack(enemy1);
+        assertEquals(70, enemy1.getHealthPoints());
+    }
+    @Test
+    public void hitterCanHitWithBothHands() {
+        knight1.setRightHand(weapon);
+        knight1.attack(enemy1);
+        assertEquals(40, enemy1.getHealthPoints());
+    }
+
+    @Test
+    public void healerCanHeal() {
+        cleric1.heal(knight1);
+        assertEquals(145, knight1.getHealthPoints());
+    }
 //    @Test
 //    public void canInitiateAttack(){
 //        game.addPlayer(knight1);

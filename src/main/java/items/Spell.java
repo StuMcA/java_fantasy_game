@@ -14,6 +14,9 @@ public class Spell implements IWield {
         this.speed = speed;
     }
 
+    public int getPower() {
+        return this.spellPower;
+    }
 }
 
 
