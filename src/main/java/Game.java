@@ -1,7 +1,9 @@
+import behaviours.ICast;
 import behaviours.IHeal;
 import behaviours.IStore;
 import characters.Enemy;
 import characters.GameCharacter;
+import items.Spell;
 import items.Stash;
 
 import java.util.ArrayList;
@@ -86,7 +88,6 @@ public class Game {
     }
 
     public void fighterTurn(Room room) {
-
         for (GameCharacter fighter : playerCharacters) {
             if(room.getEnemyList().size() > 0) {
                 GameCharacter targetEnemy = room.getEnemyList().get(generateRandomTarget(room.getEnemyList()));
@@ -94,6 +95,24 @@ public class Game {
                 System.out.println(fighter.getName() + " hit " + targetEnemy.getName() + " for " + damageDone + " damage");
                 this.checkForDead(fighter, room.getEnemyList());
             }
+        }
+    }
+
+    public void spellCasterTurn(Room room) {
+        for (GameCharacter gameCharacter : playerCharacters) {
+            if(gameCharacter instanceof ICast) {
+                GameCharacter target;
+                if (!(((ICast) gameCharacter).getSpell() == null )) {
+                    if(((ICast) gameCharacter).getSpell().getPower() < 0) {
+                        target  = findLowestHealthPlayer();
+                    } else {
+                        target = room.getEnemyList().get((generateRandomTarget(room.getEnemyList())));
+                    }
+                    int spellPower = ((ICast) gameCharacter).castSpell(target);
+                    System.out.println(gameCharacter.getName() + " cast a spell. it did " + spellPower + " damage.");
+                }
+            }
+            this.checkForDead(gameCharacter, room.getEnemyList());
         }
     }
 
@@ -141,6 +160,7 @@ public class Game {
 
     public void battleTurn(Room room) {
         this.fighterTurn(room);
+        this.spellCasterTurn(room);
         this.enemyTurn(room);
         this.healerTurn();
         System.out.println("Press Enter to continue!");

@@ -2,6 +2,7 @@ package characters;
 
 import behaviours.ICast;
 import behaviours.IWield;
+import items.Spell;
 
 import java.util.Random;
 
@@ -18,7 +19,10 @@ public class Wizard extends GameCharacter implements ICast {
         }
 
     public IWield getSpell() {
-        return super.getLeftHand();
+        if (super.getLeftHand() instanceof Spell) {
+            return super.getLeftHand();
+        }
+        return null;
     }
 
     public void equipSpell(IWield spell) {
@@ -83,4 +87,17 @@ public class Wizard extends GameCharacter implements ICast {
             }
             return damageDone;
     }
+
+    public int castSpell(GameCharacter target) {
+        int spellPower = 0;
+        if (!(getSpell() == null)) {
+            spellPower += getSpell().getPower();
+        }
+        if (!(getStaff() == null)) {
+            spellPower = (int) Math.round(spellPower * (double) getStaff().getPower()/10);
+        }
+        target.setHealthPoints(target.getHealthPoints() - spellPower);
+        return (int) (spellPower * getRandomMultiplier());
+    }
+
 }

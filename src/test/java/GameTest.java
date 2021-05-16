@@ -35,6 +35,7 @@ public class GameTest {
         game = new Game();
         knight1.setLeftHand(weapon);
         cleric1.setLeftHand(healingObject);
+        cleric1.setRightHand(weapon);
     }
 
     @Test

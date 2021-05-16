@@ -26,7 +26,7 @@ public class WizardTest {
         staff = new Weapon(WeaponType.STAFF, 20, 1, 100);
         game = new Game();
         familiar = new Familiar("Demon", Species.DEMON, 100);
-        goblin = new Enemy("Goblin", Species.GOBLIN, 100);
+        goblin = new Enemy("Goblin", Species.GOBLIN, 90);
     }
 
     @Test
@@ -69,5 +69,20 @@ public class WizardTest {
         wizard.setLeftHand(staff);
         wizard.attack(goblin);
         assertTrue(goblin.getHealthPoints() < 100);
+    }
+
+    @Test
+    public void canCastSpell() {
+        wizard.equipSpell(fireSpell);
+        wizard.castSpell(goblin);
+        assertTrue(goblin.getHealthPoints() <100);
+    }
+
+    @Test
+    public void staffIncreasesSpellPower() {
+        wizard.equipSpell(fireSpell);
+        wizard.equipStaff(staff);
+        wizard.castSpell(goblin);
+        assertTrue(goblin.getHealthPoints() < 0);
     }
 }

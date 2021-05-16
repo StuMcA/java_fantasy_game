@@ -14,8 +14,12 @@ public class Spell implements IWield {
         this.speed = speed;
     }
 
+    public SpellType getSpellType() {
+        return spellType;
+    }
+
     public int getPower() {
-        return this.spellPower;
+        return this.spellPower * this.spellType.getSpellMultiplier();
     }
 }
 

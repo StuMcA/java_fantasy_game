@@ -3,6 +3,9 @@ package characters;
 import behaviours.IHit;
 import behaviours.IStore;
 import behaviours.IWield;
+import items.HealingObject;
+import items.Spell;
+import items.Weapon;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -22,7 +25,7 @@ public abstract class GameCharacter implements IHit {
     private double defenseMultiplier;
     private boolean isDead;
 
-    public GameCharacter(String name, Species species, int healthPoints){
+    public GameCharacter(String name, Species species, int healthPoints) {
         this.name = name;
         this.species = species;
         this.healthPoints = healthPoints;
@@ -56,11 +59,11 @@ public abstract class GameCharacter implements IHit {
         return species;
     }
 
-    public void addToInventory(IStore item){
+    public void addToInventory(IStore item) {
         this.inventory.add(item);
     }
 
-    public int getInventorySize(){
+    public int getInventorySize() {
         return this.inventory.size();
     }
 
@@ -133,14 +136,12 @@ public abstract class GameCharacter implements IHit {
         if (this instanceof Wizard) {
             ((Wizard) this).familiarAttack(target);
         }
-
         int damageDone = this.getBaseAttackPower();
-        if (!(this.getLeftHand() == null)) {
+        if (!(this.getLeftHand() == null) && (this.getLeftHand() instanceof Weapon)) {
             damageDone += this.getLeftHand().getPower();
         }
-        if (!(this.getRightHand() == null)) {
+        if (!(this.getRightHand() == null) && (this.getRightHand() instanceof Weapon)) {
             damageDone += this.getRightHand().getPower();
-
         }
         damageDone = (int) Math.round(damageDone * getDamageMultiplier() * getRandomMultiplier());
         if (target instanceof Wizard) {
@@ -152,12 +153,13 @@ public abstract class GameCharacter implements IHit {
     }
 
 
+
     public int heal(GameCharacter target) {
         int healingDone = 0;
-        if (!(this.getLeftHand() == null)) {
+        if (!(this.getLeftHand() == null) && this.getLeftHand() instanceof HealingObject) {
             healingDone += this.getLeftHand().getPower();
         }
-        if (!(this.getRightHand() == null)) {
+        if (!(this.getRightHand() == null) && this.getRightHand() instanceof HealingObject) {
             healingDone += this.getRightHand().getPower();
         }
         target.setHealthPoints(target.getHealthPoints() + healingDone);
