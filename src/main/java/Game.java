@@ -3,8 +3,7 @@ import behaviours.IHeal;
 import behaviours.IStore;
 import characters.Enemy;
 import characters.GameCharacter;
-import items.Spell;
-import items.Stash;
+import characters.Wizard;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -60,11 +59,17 @@ public class Game {
     }
 
     public void checkRoom(Room room, GameCharacter gameCharacter) {
+        System.out.println("-------------------------------------");
         System.out.println("You've entered " + room.getRoomName());
         if (room.getEnemyList().size() == 0) {
             this.lootTaken(gameCharacter, room.getTreasureList());
             room.removeTreasure();
         } else {
+            System.out.println("There are " + room.getEnemyList().size() + " enemies:");
+            for (GameCharacter enemy : room.getEnemyList()) {
+                System.out.println(enemy.getName() + " the " + enemy.getSpecies().getSpeciesName() + ": " + enemy.getHealthPoints() + "HP");
+            }
+            System.out.println("-------------------------------------");
             this.battle(room);
         }
 
@@ -136,6 +141,17 @@ public class Game {
         }
     }
 
+    public void summonerTurn() {
+        for (GameCharacter player : playerCharacters) {
+            if (player instanceof Wizard) {
+                if (((Wizard) player).getFamiliar() == null) {
+                    ((Wizard) player).summonFamiliar();
+                }
+            }
+        }
+    }
+
+
     public void checkForDead(GameCharacter attacker, ArrayList<GameCharacter> characterList) {
         for (GameCharacter gameCharacter : characterList)
             if (gameCharacter.getHealthPoints() <= 0) {
@@ -167,9 +183,11 @@ public class Game {
         UserInputHandler scanner = new UserInputHandler();
         Scanner input = scanner.getScanner(System.in);
 //        input.nextLine();
+        System.out.println("-------------------------------------");
     }
 
     public void battle(Room room) {
+        this.summonerTurn();
         this.battleTurn(room);
         if(this.getPlayersSize() == 0) {
             this.loseGame(room);
