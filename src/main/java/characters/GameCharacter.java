@@ -131,7 +131,7 @@ public abstract class GameCharacter implements IHit {
 
     public int attack(GameCharacter target) {
         if (this instanceof Wizard) {
-            ((Wizard) this).getFamiliar().attack(target);
+            ((Wizard) this).familiarAttack(target);
         }
 
         int damageDone = this.getBaseAttackPower();

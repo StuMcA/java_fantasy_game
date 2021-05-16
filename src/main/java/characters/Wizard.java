@@ -48,7 +48,7 @@ public class Wizard extends GameCharacter implements ICast {
         if (generatedNumber > 0.9 ) {
             familiarName = "Destroyer of Worlds";
         } else if(generatedNumber > 0.7) {
-            familiarName = "T2000";
+            familiarName = "T-2001";
         } else if (generatedNumber > 0.5) {
             familiarName = "Karen";
         } else if (generatedNumber > 0.3) {
@@ -56,18 +56,27 @@ public class Wizard extends GameCharacter implements ICast {
         } else {
             familiarName = "Kenny";
         }
-            GameCharacter summonedFamiliar = new Familiar(familiarName, Species.DEMON, 100);
-            summonedFamiliar.setDamageMultiplier(generatedNumber);
-            summonedFamiliar.setHealthMultiplier(generatedNumber);
-            summonedFamiliar.setDefenseMultiplier(generatedNumber);
-            summonedFamiliar.setHealthPoints( (int) Math.round(summonedFamiliar.getHealthPoints() * summonedFamiliar.getHealthMultiplier()));
+        GameCharacter summonedFamiliar = new Familiar(familiarName, Species.DEMON, 100);
+        summonedFamiliar.setDamageMultiplier(generatedNumber);
+        summonedFamiliar.setHealthMultiplier(generatedNumber);
+        summonedFamiliar.setDefenseMultiplier(generatedNumber);
+        summonedFamiliar.setHealthPoints( (int) Math.round(summonedFamiliar.getHealthPoints() * summonedFamiliar.getHealthMultiplier()));
+        System.out.println(this.getName() + " summoned a familiar! " + summonedFamiliar.getName() + " is here to serve.");
+    }
+
+    public void familiarAttack(GameCharacter target) {
+            if (this.familiar != null) {
+                familiar.attack(target);
+            }
     }
 
     public int defend(int damageDone) {
             if (this.familiar != null) {
+                System.out.println(familiar.getName() + " the familiar blocked " + damageDone + " damage!!!");
                 damageDone = (int) Math.round(damageDone / familiar.getDefenseMultiplier());
                 familiar.setHealthPoints(familiar.getHealthPoints() - damageDone);
                 if  (this.familiar.getHealthPoints() < 0) {
+                    System.out.println(familiar.getName() + " is dead.");
                     this.familiar = null;
                 }
                 return 0;

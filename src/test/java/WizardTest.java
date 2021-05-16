@@ -63,4 +63,11 @@ public class WizardTest {
         wizard.attack(goblin);
         assertTrue(goblin.getHealthPoints() < 100);
     }
+
+    @Test
+    public void wizardCanAttackWithNoFamiliar() {
+        wizard.setLeftHand(staff);
+        wizard.attack(goblin);
+        assertTrue(goblin.getHealthPoints() < 100);
+    }
 }
