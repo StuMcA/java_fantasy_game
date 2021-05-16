@@ -130,6 +130,10 @@ public abstract class GameCharacter implements IHit {
     }
 
     public int attack(GameCharacter target) {
+        if (this instanceof Wizard) {
+            ((Wizard) this).getFamiliar().attack(target);
+        }
+
         int damageDone = this.getBaseAttackPower();
         if (!(this.getLeftHand() == null)) {
             damageDone += this.getLeftHand().getPower();
@@ -138,7 +142,11 @@ public abstract class GameCharacter implements IHit {
             damageDone += this.getRightHand().getPower();
 
         }
-        damageDone = (int) (damageDone * getDamageMultiplier() * getRandomMultiplier() / target.getDefenseMultiplier());
+        damageDone = (int) Math.round(damageDone * getDamageMultiplier() * getRandomMultiplier());
+        if (target instanceof Wizard) {
+            damageDone = ((Wizard) target).defend(damageDone);
+        }
+        damageDone = (int) Math.round(damageDone / target.getDefenseMultiplier());
         target.setHealthPoints(target.getHealthPoints() - damageDone);
         return damageDone;
     }
