@@ -5,9 +5,7 @@ import characters.Enemy;
 import characters.GameCharacter;
 import characters.Wizard;
 
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Game {
 
@@ -15,25 +13,25 @@ public class Game {
     private ArrayList<Room> rooms;
     private boolean gameOver;
 
-    public Game(){
+    public Game() {
         this.playerCharacters = new ArrayList<>();
         this.rooms = new ArrayList<>();
         this.gameOver = false;
     }
 
-    public int getPlayersSize(){
+    public int getPlayersSize() {
         return this.playerCharacters.size();
     }
 
-    public void addPlayer(GameCharacter gameCharacter){
+    public void addPlayer(GameCharacter gameCharacter) {
         this.playerCharacters.add(gameCharacter);
     }
 
-    public int getRoomsSize(){
+    public int getRoomsSize() {
         return this.rooms.size();
     }
 
-    public void addRoom(Room room){
+    public void addRoom(Room room) {
         this.rooms.add(room);
     }
 
@@ -44,18 +42,19 @@ public class Game {
     public void removePlayer(GameCharacter player) {
         this.playerCharacters.remove(player);
     }
+
     public ArrayList<GameCharacter> getPlayerCharacters() {
         return playerCharacters;
     }
 
-        public void exploreRoomsInDungeon() {
+    public void exploreRoomsInDungeon() {
         for (Room room : this.rooms) {
             if (this.gameOver) {
                 break;
             }
             this.checkRoom(room, this.getPlayer(0));
         }
-         System.out.println(this.gameOver ? "" : "You've won, woohoo!");
+        System.out.println(this.gameOver ? "" : "You've won, woohoo!");
     }
 
     public void checkRoom(Room room, GameCharacter gameCharacter) {
@@ -81,16 +80,10 @@ public class Game {
     }
 
     public GameCharacter findLowestHealthPlayer() {
-        for (int i=1 ; i < this.getPlayersSize()-1; i++) {
-            GameCharacter playerSort1 = this.getPlayer(i);
-            GameCharacter playerSort2 = this.getPlayer(i+1);
-            if (playerSort1.getHealthPoints() > playerSort2.getHealthPoints()) {
-                this.removePlayer(playerSort1);
-                this.addPlayer(playerSort1);
-            }
-        }
-        return this.getPlayer(0);
+        return Collections.min(this.getPlayerCharacters(), Comparator.comparing(GameCharacter::getHealthPoints));
     }
+
+
 
     public void fighterTurn(Room room) {
         for (GameCharacter fighter : playerCharacters) {
@@ -175,14 +168,18 @@ public class Game {
 
 
     public void battleTurn(Room room) {
-        this.fighterTurn(room);
-        this.spellCasterTurn(room);
+        if (room.getEnemyList().size() > 0) {
+            this.fighterTurn(room);
+        }
+        if (room.getEnemyList().size() > 0) {
+            this.spellCasterTurn(room);
+        }
         this.enemyTurn(room);
         this.healerTurn();
         System.out.println("Press Enter to continue!");
         UserInputHandler scanner = new UserInputHandler();
         Scanner input = scanner.getScanner(System.in);
-//        input.nextLine();
+        input.nextLine();
         System.out.println("-------------------------------------");
     }
 

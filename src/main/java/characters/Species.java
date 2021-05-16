@@ -5,6 +5,8 @@ public enum Species  {
     ELF ("Elf", 1.1, 1.0, 0.9),
     HUMAN ("Human", 1.0, 1.0, 1.0),
     GOBLIN ("Goblin", 1.0, 1.0, 1.0),
+    WEREWOLF ("Werewolf", 1.3, 1.4, 1.1),
+    ZOMBIE ("Zombie", 0.4, 0.3, 0.6),
     DEMON ("Demon", 1.5, 1.5, 0.7);
 
     private final String speciesName;
